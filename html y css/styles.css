@@ -9,8 +9,6 @@
     background-color:  rgba(255, 255, 0, 0.514);
 }
 
-
-
 .titulo {
     font-family: "Bebas Neue", sans-serif;
     font-weight: 400;
@@ -21,9 +19,29 @@
 
 .texto{
     font-family: "Bebas Neue", sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 }
 
-.search-button{
+.search-form .search-input{
     border-radius: 50px;
+    appearance: none;
+    -webkit-appearance: none;
+    border-color: rgba(5, 5, 5, 0.311);
+}
+
+.search-input::-webkit-search-cancel-button { /*Para borrar la 'x'*/
+    -webkit-appearance: none;
+}
+.search-input:focus {
+    outline: none;
+    border-color: black; /* Importante para asegurar que el borde no se muestre */
+    box-shadow: none !important; /* Importante para asegurar que no haya sombra */
+    caret-color: black; /* Hace que el cursor sea invisible al hacer clic */
+}
+
+
+.search-form .search-button{
+    border: 0cap;
+    position: absolute;
+    margin-left: 165px;
 }
