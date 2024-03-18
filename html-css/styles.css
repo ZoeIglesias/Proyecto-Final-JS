@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'); /*Estilo de fuente para el titulo*/
+
 
 .header{
     background-color: rgba(255, 255, 0, 0.986);
@@ -50,9 +51,44 @@
     caret-color: black; /* Hace que el cursor sea invisible al hacer clic */
 }
 
-
 .search-form .search-button{
     border: 0cap;
     position: absolute;
     margin-left: 165px;
+}
+
+
+/*----------------------------------------------------------------*/
+.pelicula{
+    position: relative;
+    text-align: center;
+}
+
+.img-fluid:hover{
+    opacity: 0.3;
+    transform: scale(1.1); /* Ajusta el valor de escala según sea necesario */
+    transition: transform 0.3s ease; /* Agrega una transición suave */
+}
+
+.titulo-pelicula {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 25px;
+   
+}
+
+.secuencia{
+    display: none; 
+    position: absolute; 
+    top: 0px;
+    left: 50%; 
+    transform: translateX(-50%);
+    z-index: 1; 
+}
+
+.pelicula:hover .secuencia{/*Aprezca el titulo cuando nos posicionamos sobre la img*/
+    display: block; 
+}
+
+.pelicula:hover .genero-pelicula{ /*Desaparezcan los generos cuando nos posicionamos sobre la img*/
+    display: none;
 }
