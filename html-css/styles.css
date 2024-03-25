@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'); /*Estilo de fuente para el titulo*/
 
-
 .header{
     background-color: rgba(255, 255, 0, 0.986);
     max-width: 800%;
@@ -17,8 +16,7 @@
     padding: 0 20px; 
     max-width: 1200px; 
     margin-left: auto; 
-    margin-right: auto; 
-   
+    margin-right: auto;    
 }
 
 .titulo {
@@ -91,4 +89,30 @@
 
 .pelicula:hover .genero-pelicula{ /*Desaparezcan los generos cuando nos posicionamos sobre la img*/
     display: none;
+}
+
+.btn-like{
+    /*margin-left: 45px;*/
+    font-size: 35px; 
+    border: none; 
+    background: none; 
+    color: white;
+}
+
+.btn-like:hover{
+ 
+  transform: scale(1.5); 
+    transition: transform 0.3s ease; 
+}
+
+.btn-like.liked {
+    color: red; /* Cambiar el color del botón a rojo cuando se le da clic */
+}
+
+.aviso{
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 3.0rem;
+    color: red;
+    text-align:center;
+    
 }

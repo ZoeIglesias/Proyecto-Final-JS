@@ -34,20 +34,20 @@
             <div class="container-fluid">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="texto nav-link" href="#" style="font-size: 1.5rem">Inicio</a>
+                        <a class="texto nav-link" href="inicio" style="font-size: 1.5rem">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="texto nav-link" href="#" style="font-size: 1.5rem">Mis Peliculas</a>
+                        <a class="texto nav-link" href="mis-peliculas" style="font-size: 1.5rem">Mis Peliculas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="texto nav-link " href="#" style="font-size: 1.5rem">Watchlist</a>
+                        <a class="texto nav-link " href="watchlist" style="font-size: 1.5rem">Watchlist</a>
                     </li>
                     <li class="nav-item">
-                        <a class="texto nav-link" href="#" style="font-size: 1.5rem">Mis Listas</a>
+                        <a class="texto nav-link" href="mis-listas" style="font-size: 1.5rem">Mis Listas</a>
                     </li>
                 </ul>
-                <form class="search-form d-flex">
-                    <input class="search-input  form-control me-2 " type="search" placeholder="Buscar">
+                <form class="search-form d-flex" id="lupita">
+                    <input id="buscador-id" class="search-input  form-control me-2 " type="search" placeholder="Titulo/Director/Genero">
                     <button class="btn search-button" type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
@@ -55,10 +55,11 @@
             </div>
         </nav>
     </div>
-    
+   
     <!--PELICULAS-->
-    <div class="row movie-container" id="movies-container" style="margin-top: 35px; margin-left: 70px;">
+    <div class="row movie-container" id="espacio-peliculas" style="margin-top: 35px; margin-left: 70px;">
         <!--Contenido generado por JS-->
+        
     </div>
 
     <!-- Bootstrap -->
@@ -74,7 +75,11 @@
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
     
-    <script src="../js/index.js"></script>
+    <script type="module" src="../java-script/index.js"></script>
+    <script type="module" src="../java-script/pelicula.js"></script>
+    <script type="module" src="../java-script/funciones.js"></script>
+    <script type="module" src="../java-script/varGlobales.js"></script>
+    <script type="module" src="../java-script/manejoEventos.js"></script>
 </body>
 
 
