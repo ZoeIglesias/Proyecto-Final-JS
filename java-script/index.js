@@ -1,8 +1,8 @@
 import { agregarAlDoc} from './funciones.js';
-import {agregarAMisPeliculas, buscador, mostrarEnPantalla} from './manejoEventos.js'
+import {agregarAMisPeliculas, buscador, mostrarEnPantalla, agregarAWatchlist} from './manejoEventos.js'
 //import Pelicula from './pelicula.js';
 import { crearObjetoPelicula } from './funciones.js';
-import { arrayMisPeliculas, arrayPeliculas } from './varGlobales.js';
+import { arrayMisPeliculas, arrayPeliculas, arrayWatchlist } from './varGlobales.js';
 
 //-----------------------INSTANCIAS-----------------------//
 //crearObjetoPelicula(Titulo, Imagen, [Genero/s], Director, Duracion)
@@ -89,7 +89,7 @@ inputCliente.onsubmit = function (event) {
   buscador();
 };
 
-//2.) Likear
+/*/2.) Likear
 let botonesLike = document.querySelectorAll(".btn-like");
 botonesLike.forEach((boton) => {
   boton.onclick = function (event) {
@@ -97,7 +97,7 @@ botonesLike.forEach((boton) => {
     boton.classList.toggle("liked");
     agregarAMisPeliculas(boton);
   };
-});
+});*/
 
 //3.) ACCEDER A LOS ITEMS DE LA NAV-BAR
 //INICIO
@@ -114,4 +114,11 @@ let itemMisPeliculas = document.querySelector('.nav-link[href="mis-peliculas"]')
 itemMisPeliculas.onclick = function (event) {
   event.preventDefault();
   mostrarEnPantalla(arrayMisPeliculas);
+}
+
+//WATCHLIST
+let itmeWatchlist = document.querySelector('.nav-link[href="watchlist"]');
+itmeWatchlist.onclick = function (event) {
+  event.preventDefault();
+  mostrarEnPantalla(arrayWatchlist);
 }

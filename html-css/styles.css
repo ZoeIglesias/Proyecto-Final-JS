@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'); /*Estilo de fuente para el titulo*/
+@import url('https://cdn-uicons.flaticon.com/2.2.0/uicons-regular-rounded/css/uicons-regular-rounded.css');
 
 .header{
     background-color: rgba(255, 255, 0, 0.986);
@@ -55,7 +56,31 @@
     margin-left: 165px;
 }
 
+.avisoNoHayPelicula{
+    background-color: rgba(238, 130, 238, 0.5); /* Color de fondo semitransparente violeta */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%; /* Ancho del div */
+    max-width: 300px; /* Ancho máximo del div */
+    height: auto; /* Altura ajustada automáticamente */
+    padding: 20px; /* Espacio interno */
+    margin: 90px; /* Margen alrededor del div */
+    color: white;
+    position: fixed; /* Se mantiene fijo en la ventana */
+    top: 50%; /* Centrado vertical */
+    left: 50%; /* Centrado horizontal */
+    transform: translate(-50%, -50%); /* Centrado absoluto */
+}
 
+.aviso{
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 3.0rem;
+    /*color: red;*/
+    text-align:center;
+    
+}
 /*----------------------------------------------------------------*/
 .pelicula{
     position: relative;
@@ -90,7 +115,34 @@
 .pelicula:hover .genero-pelicula{ /*Desaparezcan los generos cuando nos posicionamos sobre la img*/
     display: none;
 }
+.btn-watchlist{
+    font-size: 35px; 
+    border: none; 
+    background: none; 
+    color: white;
+}
 
+/*.buttons-container {
+    display: flex; /* Utilizar flexbox 
+  }*/
+
+/*boton watchlist*/
+.btn-watchlist {
+    font-size: 35px;
+    border: none;
+    background: none;
+    color: white;
+}
+
+.btn-watchlist:hover{
+    transform: scale(1.5); 
+    transition: transform 0.3s ease; 
+}
+.enWatchlist{
+    color: blue;
+}
+
+/*boton like*/
 .btn-like{
     /*margin-left: 45px;*/
     font-size: 35px; 
@@ -98,7 +150,6 @@
     background: none; 
     color: white;
 }
-
 .btn-like:hover{
  
   transform: scale(1.5); 
@@ -108,11 +159,7 @@
 .btn-like.liked {
     color: red; /* Cambiar el color del botón a rojo cuando se le da clic */
 }
-
-.aviso{
-    font-family: "Bebas Neue", sans-serif;
-    font-size: 3.0rem;
+.corazon-activo {
     color: red;
-    text-align:center;
-    
 }
+  

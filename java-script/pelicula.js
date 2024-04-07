@@ -8,6 +8,8 @@ export default class Pelicula {
       this.duracion = duracion; //en minutos
       this.puntaje = null;
       this.vista = false;
+      this.like = false;
+      this.enWatchlist = false;
     }
   
     marcarComoVista() {
@@ -17,4 +19,22 @@ export default class Pelicula {
     puntuar(puntaje) {
       this.puntaje = puntaje;
     }
+
+    meGusta(){ //para alternar el funcionamiento
+      if(this.like){//si ya estaba 'likeada'
+        this.like = false //--> dislike
+      }else{
+        this.like = true//--> sino la likea
+      }
+    }
+
+    manejarWatchlist(){
+      if(this.enWatchlist){
+        this.enWatchlist = false;
+      }else{
+        this.enWatchlist = true;
+      }
+    }
+
+    
   }
