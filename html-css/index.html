@@ -16,54 +16,57 @@
     <title>MoviesBox</title>
 </head>
 
-<header>
-    <div class="header container-fluid py">
-        <div class="row align-items-center">
-            <div class="col-auto">
-                <img src="imagenes/claqueta-sin-fondo.png" alt="claqueta" width="150" height="150">
-            </div>
-            <div class="col">
-                <h1 class="titulo display-1 text-black">MOVIESBOX</h1>
-            </div>
-        </div>
-    </div>
-</header>
-
 <body>
-    <!--BARRA NAVEGADORA-->
-    <div class="user-container py-2 px-3">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container-fluid">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="texto nav-link" href="inicio" style="font-size: 1.5rem">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="texto nav-link" href="mis-peliculas" style="font-size: 1.5rem">Mis Peliculas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="texto nav-link " href="watchlist" style="font-size: 1.5rem">Watchlist</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="texto nav-link" href="mis-listas" style="font-size: 1.5rem">Mis Listas</a>
-                    </li>
-                </ul>
-                <form class="search-form d-flex" id="lupita">
-                    <input id="buscador-id" class="search-input  form-control me-2 " type="search" placeholder="Titulo/Director/Genero">
-                    <button class="btn search-button" type="submit">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form>
-            </div>
-        </nav>
-    </div>
-   
-    <!--PELICULAS-->
-    <div class="row movie-container" id="espacio-peliculas" style="margin-top: 35px; margin-left: 70px;">
-        <!--Contenido generado por JS-->
-        
-    </div>
+    <div class="container-principal">
 
+        <header>
+            <div class="title-container container-fluid py">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <img src="imagenes/claqueta-sin-fondo.png" alt="claqueta" width="150" height="150">
+                    </div>
+                    <div class="col">
+                        <h1 class="titulo display-1 text-black">MOVIESBOX</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <!--BARRA NAVEGADORA-->
+        <div class="user-container py-2 px-3" id="contenedor-usuario">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <div class="container-fluid">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="texto nav-link" href="inicio" style="font-size: 1.5rem">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="texto nav-link" href="mis-peliculas" style="font-size: 1.5rem">Mis Peliculas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="texto nav-link " href="watchlist" style="font-size: 1.5rem">Watchlist</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="texto nav-link" href="mis-rankings" style="font-size: 1.5rem">Mis Rankings</a>
+                            </li>
+                        </ul>
+                        <form class="search-form d-flex" id="lupita">
+                            <input id="buscador-id" class="search-input  form-control me-2 " type="search" placeholder="Titulo/Director/Genero">
+                            <button class="btn search-button" type="submit">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
+                    </div>
+                </nav>
+        </div>
+            <!--PELICULAS-->
+        <div class="row movie-container" id="espacio-peliculas" style="margin-top: 35px; margin-left: 70px;">
+                <!--Contenido generado por JS-->      
+        </div>
+
+    </div>
+<body>
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"x
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

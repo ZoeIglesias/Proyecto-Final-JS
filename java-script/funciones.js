@@ -1,6 +1,6 @@
 import Pelicula from "./pelicula.js";
 import { arrayPeliculas } from './varGlobales.js';
-import {agregarAMisPeliculas, agregarAWatchlist} from './manejoEventos.js'
+import {agregarAMisPeliculas, agregarAWatchlist, rankearPelicula, obtenerRankingNumerico} from './manejoEventos.js'
 //-----------------------------FUNCIONES---------------------------------------//
 //-----------------LOGICA PARA AGREGAR LAS PELIS AL DOC HTML------------------//
 export function agregarAlDoc() {
@@ -28,13 +28,14 @@ export function agregarAlDoc() {
    
   });
 
-  //VERIFICA ESTADO (color) DE LOS BOTONES Y SUS CLASES
+  //VERIFICA ESTADO (color) DE LOS BOTONES Y SUS CLASES 
   clasesBotonLike();
   clasesBotonWatchlist();
+  clasesBotonRanking();
   
   // Asignar eventos de clic a los botones de like
-  let botonesLike = moviesContainer.querySelectorAll(".btn-like");
-  botonesLike.forEach((boton) => {
+  let botonesLike = moviesContainer.querySelectorAll(".btn-like");// selecciono todos los botones
+  botonesLike.forEach((boton) => { //para cada boton --> addEventListener
     boton.onclick = function (event) {
       event.preventDefault();
       agregarAMisPeliculas(boton);
@@ -49,6 +50,20 @@ export function agregarAlDoc() {
       agregarAWatchlist(boton); 
     }
   });
+
+  //Asignar eventos de clic a los botones de ranking
+  let botonesRanking = moviesContainer.querySelectorAll(".btn-stars");
+  botonesRanking.forEach( (boton) =>{
+    boton.onclick = function(event){
+      event.preventDefault();
+      let botonId = boton.id
+      rankearPelicula(boton);
+      
+      console.log(botonId)
+    }
+  })
+
+  
 }
 
 export function crearEsqueleto(pelicula) {//se crea todo el contenido del 'cobteiner' para cada pelicula
@@ -76,6 +91,25 @@ export function crearEsqueleto(pelicula) {//se crea todo el contenido del 'cobte
                   <button class="btn-watchlist" id="watch-list">
                   <i class="fi fi-rr-clock-three"></i>
                   </button>
+                  <div class="botones-ranking">
+                    <button class="btn-stars" id="ranking-1">
+                    <i class="fa-solid fa-star"></i>
+                    </button>
+                    <button class="btn-stars" id="ranking-2">
+                    <i class="fa-solid fa-star"></i>
+                    </button>
+                    <button class="btn-stars" id="ranking-3">
+                    <i class="fa-solid fa-star"></i>
+                    </button>
+                    <button class="btn-stars" id="ranking-4">
+                    <i class="fa-solid fa-star"></i>
+                    </button>
+                    <button class="btn-stars" id="ranking-5">
+                    <i class="fa-solid fa-star"></i>
+                    </button>
+                  </div>
+                  
+    
                 </div>
               </div>
               <img src="${pelicula.imagen}" alt="${pelicula.titulo}" class="img-fluid">
@@ -87,7 +121,7 @@ export function crearEsqueleto(pelicula) {//se crea todo el contenido del 'cobte
   
   return informacion;
 }
-export function crearEsqueletoSimplificado(pelicula) {//se crea todo el contenido del 'cobteiner' para cada pelicula
+export function crearEsqueletoSimplificado(pelicula) {//se crea todo el contenido del 'conteiner' para cada pelicula
   let i = 0;
   let generosAMostrar = "";
   for (i = 0; i < 2; i++) {
@@ -168,6 +202,24 @@ function clasesBotonWatchlist(){
       boton.classList.add("enWatchlist");
     }else{
       boton.classList.remove("enWatchlist");
+    }
+  });
+}
+
+function clasesBotonRanking(){
+  let moviesContainer = document.getElementById("espacio-peliculas");
+  let botonesRanking = moviesContainer.querySelectorAll(".btn-stars");
+  botonesRanking.forEach( (boton) => {
+    let peliculaId = boton.closest(".pelicula").id;
+    let pelicula = obtenerObjeto(peliculaId);
+
+    let ranking = obtenerRankingNumerico(boton.id);
+   
+    // Si el número de estrella es menor o igual al puntaje de la película, aplicamos la clase puntuada
+    if(pelicula.puntaje && ranking <= pelicula.puntaje){
+      boton.classList.add("puntuada");
+    } else {
+      boton.classList.remove("puntuada");
     }
   });
 }

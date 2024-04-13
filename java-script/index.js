@@ -50,7 +50,7 @@ crearObjetoPelicula(
   130
 );
 crearObjetoPelicula(
-  "Spider-Man: Across The Spider Verse",
+  "Across The Spider Verse",
   "../html-css/imagenes/spider-across.jpg",
   ["Animacion", "Aventura"],
   "Joaquim Dos Santos",
@@ -121,4 +121,11 @@ let itmeWatchlist = document.querySelector('.nav-link[href="watchlist"]');
 itmeWatchlist.onclick = function (event) {
   event.preventDefault();
   mostrarEnPantalla(arrayWatchlist);
+}
+
+//RANKINGS
+let itemRankings = document.querySelector('.nav-link[href="mis-rankings"]');
+itemRankings.onclick = function(event){
+  event.preventDefault();
+  mostrarMisRankings()
 }
