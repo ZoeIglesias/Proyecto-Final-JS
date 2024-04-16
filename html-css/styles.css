@@ -58,8 +58,23 @@
     position: absolute;
     margin-left: 165px;
 }
+/*-----------------INICIO----------------------------*/
+.formulario-inicio{
+    max-width: 300px;
+    margin-top: 13px !important;
+    margin-left: 15px !important;
+}
 
-
+.btn-inicio{
+    margin-top: 15px;
+    margin-left: 20px !important;
+}
+.btn-primary{
+    background-color: rgba(255, 255, 0, 0.742) !important;
+    color: black !important;
+    border-color: rgb(8, 8, 0) !important;
+    font-family: "Bebas Neue", sans-serif !important;
+}
 /*MODIFICAR*/
 .avisoNoHayPelicula{
     background-color:  rgba(143, 247, 219, 0.921); /* Color de fondo semitransparente violeta */
