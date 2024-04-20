@@ -75,6 +75,10 @@
     border-color: rgb(8, 8, 0) !important;
     font-family: "Bebas Neue", sans-serif !important;
 }
+.hidden {
+    display: none;
+}
+/*-----------------INICIO----------------------------*/
 /*MODIFICAR*/
 .avisoNoHayPelicula{
     background-color:  rgba(143, 247, 219, 0.921); /* Color de fondo semitransparente violeta */

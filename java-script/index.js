@@ -1,26 +1,11 @@
-import { agregarAlDoc} from './funciones.js';
+import { agregarAlDoc,obtenerObjeto} from './funciones.js';
 import {agregarAMisPeliculas, buscador, mostrarEnPantalla} from './manejoEventos.js'
 import { arrayMisPeliculas, arrayWatchlist } from './varGlobales.js';
 import { crearTodasLasInstacias } from './instancias.js';
 import {iniciarSesionUsuario} from './login.js'
 //-----------------------INSTANCIAS-----------------------//
 crearTodasLasInstacias();
-//---------------------------------------------------------------------------------------------//
-function borrarDatosDelStorage(){
-  localStorage.removeItem("usuario");
-  console.log(localStorage.length);
 
-}
-function mostarDatosDelStorage(){
-  for(let i =0; i < localStorage.length;i++){
-    let clave = localStorage.key(i);
-    console.log("Clave: "+ clave+", Valor: "+ localStorage.getItem(clave))
-  }
-  
-}
-console.log(localStorage.length);
-mostarDatosDelStorage();
-//borrarDatosDelStorage();
 //---------------------------------main()------------------------------------------------------//
 //---------------------------------LOGING-----------------------------------------------------//
 iniciarSesionUsuario();
@@ -55,14 +40,24 @@ itemInicio.onclick = function (event) {
 let itemMisPeliculas = document.querySelector('.nav-link[href="mis-peliculas"]');
 itemMisPeliculas.onclick = function (event) {
   event.preventDefault();
-  mostrarEnPantalla(arrayMisPeliculas);
+  mostrarMisPeliculas();
+}
+function mostrarMisPeliculas() { //mover a manejo de eventos
+  let usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
+  let peliculasLikeadas = usuarioGuardado.likes.map(titulo => obtenerObjeto(titulo)); // Recuperar los objetos de película correspondientes a partir de los títulos
+
+  mostrarEnPantalla(peliculasLikeadas); // Mostrar las películas likeadas en la pantalla
+  
 }
 
 //WATCHLIST
 let itmeWatchlist = document.querySelector('.nav-link[href="watchlist"]');
 itmeWatchlist.onclick = function (event) {
   event.preventDefault();
-  mostrarEnPantalla(arrayWatchlist);
+  let usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
+  let peliculasEnWatchlist = usuarioGuardado.watchlist.map(titulo => obtenerObjeto(titulo)); // Recuperar los objetos de película correspondientes a partir de los títulos
+  console.log(peliculasEnWatchlist)
+  mostrarEnPantalla(peliculasEnWatchlist);
 }
 
 //RANKINGS

@@ -185,7 +185,7 @@ function clasesBotonLike(){ //PARA VERIFICAR EL COLOR DE LOS BOTONES (podria tmb
       let peliculaId = boton.closest(".pelicula").id;
       let pelicula = obtenerObjeto(peliculaId);
       if (pelicula.like) {
-          boton.classList.add("corazon-activo"); //SI ESTA EN WATCHLIST LE AGREGO LA CLASE PARA QUE CAMBIE DE COLOR
+          boton.classList.add("corazon-activo"); //SI ESTA LIKEADA LE AGREGO LA CLASE PARA QUE CAMBIE DE COLOR
       } else {
           boton.classList.remove("corazon-activo");
       }

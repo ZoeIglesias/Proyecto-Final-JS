@@ -102,6 +102,7 @@ function filtrarPorGenero(genero){
 
 // 2.) AGREGAR A LISTA --> MIS PELICULAS
 export function agregarAMisPeliculas(boton) {
+    let usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
     let peliculaAsociada = boton.closest(".pelicula"); //Quiero el CONTEINER que tiene toda la info de la peli
     
     let objetoPelicula = obtenerObjeto(peliculaAsociada.id); //Obtengo el OBJETO
@@ -111,17 +112,15 @@ export function agregarAMisPeliculas(boton) {
 
     if (objetoPelicula.like) { //Verifico si el 'click' fue like o dislike
       boton.classList.add("corazon-activo");
-      if ((objetoPelicula != null) && !(arrayMisPeliculas.includes(objetoPelicula))) {
-        arrayMisPeliculas.push(objetoPelicula);//la agrego a mi lista de peliculas
-      } else {
-        console.log("Error 404: No se ha encontrado el objeto");
+      if ((objetoPelicula != null) && !(usuarioGuardado.likes.includes(objetoPelicula.titulo))) {
+        usuarioGuardado.likes.push(objetoPelicula.titulo); // Guardar solo el título de la película (ID)
+        localStorage.setItem("usuario", JSON.stringify(usuarioGuardado)); // Actualizar el usuario guardado en el almacenamiento local
       }
-
     } else {
       boton.classList.remove("corazon-activo");
-      let indice = arrayMisPeliculas.findIndex( (p) => p.titulo === objetoPelicula.titulo);
-  
-      arrayMisPeliculas.splice(indice, 1);//la saco a mi lista de peliculas
+      let indice = usuarioGuardado.likes.findIndex((titulo) => titulo === objetoPelicula.titulo);//En el suaurio guardo los ID (titulo) de las peliculas
+      usuarioGuardado.likes.splice(indice, 1);
+      localStorage.setItem("usuario", JSON.stringify(usuarioGuardado)); 
       
     }
     
@@ -130,6 +129,7 @@ export function agregarAMisPeliculas(boton) {
 
 // 3.) AGREGAR A LISTA --> WATCHLIST
 export function agregarAWatchlist(boton){
+  let usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
   let peliculaAsociada = boton.closest(".pelicula"); //Quiero el CONTEINER que tiene toda la info de la peli
   
   let objetoPelicula = obtenerObjeto(peliculaAsociada.id); //Obtengo el OBJETO
@@ -139,18 +139,15 @@ export function agregarAWatchlist(boton){
   if(objetoPelicula.enWatchlist){
     boton.classList.add("enWatchlist");
    
-    if((objetoPelicula != null) && !(arrayWatchlist.includes(objetoPelicula))){
-      arrayWatchlist.push(objetoPelicula);
-    }else{
-      console.log("Error 404: No se ha encontrado el objeto");
+    if ((objetoPelicula != null) && !(usuarioGuardado.watchlist.includes(objetoPelicula.titulo))) {
+      usuarioGuardado.watchlist.push(objetoPelicula.titulo);
+      localStorage.setItem("usuario", JSON.stringify(usuarioGuardado));
     }
-
   }else{
     boton.classList.remove("enWatchlist");
-
-    let indice = arrayWatchlist.findIndex( (p) => p.titulo === objetoPelicula.titulo);
-  
-    arrayWatchlist.splice(indice, 1);//la saco a mi lista de peliculas
+    let indice = usuarioGuardado.watchlist.findIndex((titulo) => titulo === objetoPelicula.titulo);
+    usuarioGuardado.watchlist.splice(indice, 1);
+    localStorage.setItem("usuario", JSON.stringify(usuarioGuardado));//TODO --> ARMAR FUNCION
   }
 
 }

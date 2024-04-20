@@ -2,7 +2,9 @@ import { agregarAlDoc, obtenerObjeto } from "./funciones.js";
 
 export function iniciarSesionUsuario(){
 
-    document.getElementById("container-principal").style.display = "none"; 
+    console.log(localStorage.length);
+    mostarDatosDelStorage();
+   //borrarDatosDelStorage();
     //FORMULARIO
     let pagina = document.getElementById("seccion-inicio");
     let contenedorFormulario = document.createElement('div');
@@ -30,6 +32,8 @@ export function iniciarSesionUsuario(){
 
     elementoFormulario.addEventListener('submit', validarDatosUsuario);
 
+    document.querySelector('.user-container').classList.add('hidden');
+
 
 }
 
@@ -54,7 +58,8 @@ function validarDatosUsuario(event){
 
             const nuevoUsuario = {
                 nombre: usuario,
-                likes: []
+                likes: [],
+                watchlist: []
             };
 
             localStorage.setItem("usuario",JSON.stringify(nuevoUsuario));
@@ -68,6 +73,7 @@ function validarDatosUsuario(event){
 
     document.getElementById("formulario").style.display = "none";
 
+    document.querySelector('.user-container').classList.remove('hidden');
     agregarAlDoc();
 
 
@@ -75,6 +81,7 @@ function validarDatosUsuario(event){
 
 function actualizarEstadoDeObjetos(usuario){
     let arrayLikes = usuario.likes;  //array que guarda el id (titulo) de las peliculas
+    let arrayWatchlist = usuario.watchlist;
 
     arrayLikes.forEach(pelId => {
         let objetoPelicula = obtenerObjeto(pelId);
@@ -82,4 +89,26 @@ function actualizarEstadoDeObjetos(usuario){
             objetoPelicula.like = true;
         }
     });
+
+    arrayWatchlist.forEach(peliId => {
+        let objetoPelicula = obtenerObjeto(peliId);
+        if(objetoPelicula){
+            objetoPelicula.enWatchlist = true;
+        }
+    })
 }
+
+//
+function borrarDatosDelStorage(){
+    localStorage.removeItem("usuario");
+    console.log("Se borraron los dtos del storgae");
+  
+  }
+  function mostarDatosDelStorage(){
+    for(let i =0; i < localStorage.length;i++){
+      let clave = localStorage.key(i);
+      console.log("Clave: "+ clave+", Valor: "+ localStorage.getItem(clave))
+    }
+    
+  }
+ 
