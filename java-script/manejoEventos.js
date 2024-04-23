@@ -1,5 +1,6 @@
-import { arrayPeliculas, arrayMisPeliculas, arrayWatchlist} from './varGlobales.js';
+import { arrayPeliculas, nombreUsuarioActual} from './varGlobales.js';
 import {obtenerObjeto, crearEsqueletoSimplificado, agregarFila, agregarAlDoc} from './funciones.js'
+import { obtenerUsuarios } from './login.js';
 //---------------FUNCIONALIDADES--------------------//
 
 // 1.) BUSCAR
@@ -99,37 +100,37 @@ function filtrarPorGenero(genero){
   return peliculasFiltradas;
 
 }
-
 // 2.) AGREGAR A LISTA --> MIS PELICULAS
 export function agregarAMisPeliculas(boton) {
-    let usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
-    let peliculaAsociada = boton.closest(".pelicula"); //Quiero el CONTEINER que tiene toda la info de la peli
-    
-    let objetoPelicula = obtenerObjeto(peliculaAsociada.id); //Obtengo el OBJETO
+  let usuariosGuardados = obtenerUsuarios();
+  let usuarioActual = usuariosGuardados.find((usuario) => usuario.nombre === nombreUsuarioActual); 
+  let peliculaAsociada = boton.closest(".pelicula"); //Quiero el CONTEINER que tiene toda la info de la peli
+  
+  let objetoPelicula = obtenerObjeto(peliculaAsociada.id); //Obtengo el OBJETO
 
-    objetoPelicula.meGusta();
+  objetoPelicula.meGusta();
 
 
-    if (objetoPelicula.like) { //Verifico si el 'click' fue like o dislike
-      boton.classList.add("corazon-activo");
-      if ((objetoPelicula != null) && !(usuarioGuardado.likes.includes(objetoPelicula.titulo))) {
-        usuarioGuardado.likes.push(objetoPelicula.titulo); // Guardar solo el título de la película (ID)
-        localStorage.setItem("usuario", JSON.stringify(usuarioGuardado)); // Actualizar el usuario guardado en el almacenamiento local
-      }
-    } else {
-      boton.classList.remove("corazon-activo");
-      let indice = usuarioGuardado.likes.findIndex((titulo) => titulo === objetoPelicula.titulo);//En el suaurio guardo los ID (titulo) de las peliculas
-      usuarioGuardado.likes.splice(indice, 1);
-      localStorage.setItem("usuario", JSON.stringify(usuarioGuardado)); 
-      
+  if (objetoPelicula.like) { //Verifico si el 'click' fue like o dislike
+    boton.classList.add("corazon-activo");
+    if ((objetoPelicula != null) && !(usuarioActual.likes.includes(objetoPelicula.titulo))) {
+      usuarioActual.likes.push(objetoPelicula.titulo); // guardo solo el título de la película (ID)
+      localStorage.setItem("usuarios", JSON.stringify(usuariosGuardados)); // Actualizo la lista de usuarios guardados en el almacenamiento local
     }
+  } else {
+    boton.classList.remove("corazon-activo");
+    let indice = usuarioActual.likes.findIndex((titulo) => titulo === objetoPelicula.titulo);//En el suaurio guardo los ID (titulo) de las peliculas
+    usuarioActual.likes.splice(indice, 1);
+    localStorage.setItem("usuarios", JSON.stringify(usuariosGuardados)); 
     
-    console.log(objetoPelicula.like)
+  }
+  
 }
 
 // 3.) AGREGAR A LISTA --> WATCHLIST
 export function agregarAWatchlist(boton){
-  let usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
+  let usuariosGuardados = obtenerUsuarios();
+  let usuarioActual = usuariosGuardados.find((usuario) => usuario.nombre === nombreUsuarioActual); 
   let peliculaAsociada = boton.closest(".pelicula"); //Quiero el CONTEINER que tiene toda la info de la peli
   
   let objetoPelicula = obtenerObjeto(peliculaAsociada.id); //Obtengo el OBJETO
@@ -139,15 +140,15 @@ export function agregarAWatchlist(boton){
   if(objetoPelicula.enWatchlist){
     boton.classList.add("enWatchlist");
    
-    if ((objetoPelicula != null) && !(usuarioGuardado.watchlist.includes(objetoPelicula.titulo))) {
-      usuarioGuardado.watchlist.push(objetoPelicula.titulo);
-      localStorage.setItem("usuario", JSON.stringify(usuarioGuardado));
+    if ((objetoPelicula != null) && !(usuarioActual.watchlist.includes(objetoPelicula.titulo))) {
+      usuarioActual.watchlist.push(objetoPelicula.titulo);
+      localStorage.setItem("usuarios", JSON.stringify(usuariosGuardados));
     }
   }else{
     boton.classList.remove("enWatchlist");
-    let indice = usuarioGuardado.watchlist.findIndex((titulo) => titulo === objetoPelicula.titulo);
-    usuarioGuardado.watchlist.splice(indice, 1);
-    localStorage.setItem("usuario", JSON.stringify(usuarioGuardado));//TODO --> ARMAR FUNCION
+    let indice = usuarioActual.watchlist.findIndex((titulo) => titulo === objetoPelicula.titulo);
+    usuarioActual.watchlist.splice(indice, 1);
+    localStorage.setItem("usuarios", JSON.stringify(usuariosGuardados));//TODO --> ARMAR FUNCION
   }
 
 }

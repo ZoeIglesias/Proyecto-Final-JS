@@ -1,6 +1,6 @@
 import { agregarAlDoc,obtenerObjeto} from './funciones.js';
 import {agregarAMisPeliculas, buscador, mostrarEnPantalla} from './manejoEventos.js'
-import { arrayMisPeliculas, arrayWatchlist } from './varGlobales.js';
+import { nombreUsuarioActual } from './varGlobales.js';
 import { crearTodasLasInstacias } from './instancias.js';
 import {iniciarSesionUsuario} from './login.js'
 //-----------------------INSTANCIAS-----------------------//
@@ -43,20 +43,19 @@ itemMisPeliculas.onclick = function (event) {
   mostrarMisPeliculas();
 }
 function mostrarMisPeliculas() { //mover a manejo de eventos
-  let usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
-  let peliculasLikeadas = usuarioGuardado.likes.map(titulo => obtenerObjeto(titulo)); // Recuperar los objetos de película correspondientes a partir de los títulos
-
+  let usuariosGuardados = JSON.parse(localStorage.getItem("usuarios"));
+  let usuarioActual = usuariosGuardados.find((usuario) => usuario.nombre === nombreUsuarioActual); 
+  let peliculasLikeadas = usuarioActual.likes.map(titulo => obtenerObjeto(titulo)); // Recuperar los objetos de película correspondientes a partir de los títulos
   mostrarEnPantalla(peliculasLikeadas); // Mostrar las películas likeadas en la pantalla
-  
 }
 
 //WATCHLIST
 let itmeWatchlist = document.querySelector('.nav-link[href="watchlist"]');
 itmeWatchlist.onclick = function (event) {
   event.preventDefault();
-  let usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
-  let peliculasEnWatchlist = usuarioGuardado.watchlist.map(titulo => obtenerObjeto(titulo)); // Recuperar los objetos de película correspondientes a partir de los títulos
-  console.log(peliculasEnWatchlist)
+  let usuariosGuardados = JSON.parse(localStorage.getItem("usuarios"));
+  let usuarioActual = usuariosGuardados.find((usuario) => usuario.nombre === nombreUsuarioActual); 
+  let peliculasEnWatchlist = usuarioActual.watchlist.map(titulo => obtenerObjeto(titulo)); // Recuperar los objetos de película correspondientes a partir de los títulos
   mostrarEnPantalla(peliculasEnWatchlist);
 }
 
