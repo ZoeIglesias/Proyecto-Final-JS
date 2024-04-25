@@ -56,10 +56,8 @@ export function agregarAlDoc() {
   botonesRanking.forEach( (boton) =>{
     boton.onclick = function(event){
       event.preventDefault();
-      let botonId = boton.id
       rankearPelicula(boton);
-      
-      console.log(botonId)
+  
     }
   })
 

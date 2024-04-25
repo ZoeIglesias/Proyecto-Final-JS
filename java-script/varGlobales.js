@@ -4,6 +4,6 @@ export let arrayPeliculas = [];
 export let arrayWatchlist = [];
 export let nombreUsuarioActual = "ninguno";
 
-export function setNombreUsuarioActual(nuevoNombre) {
+export function setNombreUsuarioActual(nuevoNombre) {//sino me daba un error y tomaba el nombre como un const
     nombreUsuarioActual = nuevoNombre; 
 }

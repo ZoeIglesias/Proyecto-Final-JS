@@ -1,5 +1,5 @@
 import { agregarAlDoc,obtenerObjeto} from './funciones.js';
-import {agregarAMisPeliculas, buscador, mostrarEnPantalla} from './manejoEventos.js'
+import {agregarAMisPeliculas, buscador, mostrarEnPantalla, mostrarMisRankings} from './manejoEventos.js'
 import { nombreUsuarioActual } from './varGlobales.js';
 import { crearTodasLasInstacias } from './instancias.js';
 import {iniciarSesionUsuario} from './login.js'

@@ -1,6 +1,6 @@
 import { agregarAlDoc, obtenerObjeto } from "./funciones.js";
-import { setNombreUsuarioActual} from "./varGlobales.js";
-export function iniciarSesionUsuario(){
+import { setNombreUsuarioActual, nombreUsuarioActual} from "./varGlobales.js";
+/*export function iniciarSesionUsuario(){
 
     console.log(localStorage.length);
     mostarDatosDelStorage();
@@ -35,65 +35,109 @@ export function iniciarSesionUsuario(){
     document.querySelector('.user-container').classList.add('hidden');
 
 
+}*/
+
+export function iniciarSesionUsuario() {
+    console.log(localStorage.length);
+    //mostarDatosDelStorage();
+    //borrarDatosDelStorage();
+
+    Swal.fire({
+        title: 'Iniciar sesión',//titulo del POP-UP
+        html: `
+            <input type="text" id="login" class="swal2-input" placeholder="Nombre de usuario"> 
+        `, //Defino el contenido del POP-UP
+        confirmButtonText: 'Iniciar sesión',
+       
+        preConfirm: () => { //Valido el nombre que ingreso el usuario, es decir que no sea nulo => ''
+            const login = Swal.getPopup().querySelector('#login').value//obtengo el valor del input mediante el id del input
+            if (!login) {
+                Swal.showValidationMessage(`Por favor, ingrese un nombre de usuario válido`)
+            }
+            return { login: login }
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const usuarioNombre = result.value.login;
+            validarDatosUsuario(usuarioNombre);
+        }
+    });
 }
-
-
-function validarDatosUsuario(event){
-    event.preventDefault();
-
-    const usuarioNombre = document.getElementById('userName').value; //sin.value no funciona --> Toma lo que ingreso el usuario
-    console.log(usuarioNombre);
-
-    if(usuarioNombre === ''){
-        alert("Por favor, ingrese un nombre de usuario válido");
-        return;
-    }
+function validarDatosUsuario(usuarioNombre) {
 
     let usuariosExistentes = obtenerUsuarios();
-    console.log("Usuarios existente -->"+usuariosExistentes);
     let usuarioLogueado = usuariosExistentes.find(usuario => usuario.nombre === usuarioNombre);//busco el usuario entre todos los existentes
 
-    console.log("Usuario encontrado -->"+usuarioLogueado);
 
     if(!usuarioLogueado){ //si es nulo, es decir no existe lo creo
-        let confrimarCreacion = prompt("El usuario ingresado no existe, desea crear uno \nS/N?");
+        Swal.fire({
+            title: 'El usuario ingresado no existe, desea crear uno?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Creado',
+                    html: `Se ha creado un nuevo usuario\n <br>Nombre nuevo usuario: <b>${usuarioNombre}</b></br>`,
+                    icon: 'success'
+                });
 
-        if(confrimarCreacion.toLowerCase() === "s"){
-            alert("Se ha creado un nuevo usuario\n Nuevo Usuario: "+ usuarioNombre);
+                usuarioLogueado = {
+                    nombre: usuarioNombre,
+                    likes: [],
+                    watchlist: [],
+                    puntajes:[]
+                };
 
-            usuarioLogueado = {
-                nombre: usuarioNombre,
-                likes: [],
-                watchlist: []
-            };
+                usuariosExistentes.push(usuarioLogueado); //lo agrego a los usuarios existentes
+                
+                actualizarStorage(usuarioLogueado); //actualizo el storage
 
-            usuariosExistentes.push(usuarioLogueado); //lo agrego a los usuarios existentes
-            
-            actualizarStorage(usuarioLogueado); //actualizo el storage
-           
-        }else{return;}
+                setNombreUsuarioActual(usuarioLogueado.nombre);
+                document.querySelector('.user-container').classList.remove('hidden');
+                agregarAlDoc();
+            }else{
+                iniciarSesionUsuario();
+            }
+        });
     }else{
-        alert("BIENVENIDO/A DE VUELTA "+usuarioLogueado.nombre);
-        if((usuarioLogueado.likes !== null) || (usuarioLogueado.watchlist !== null)){
+        Swal.fire('Bienvenido/a de vuelta', usuarioLogueado.nombre, 'success');
+        usuarioLogueado.puntajes.forEach(puntaje => 
+            console.log("Puntajes del usuario:\n PELICULA:"+puntaje.titulo+" PUNTAJE:"+puntaje.puntaje));
+
+        if((usuarioLogueado.likes !== null) || (usuarioLogueado.watchlist !== null) || (usuarioLogueado.puntajes !== null)){
             actualizarEstadoDeObjetos(usuarioLogueado);
         }
     }
 
-   setNombreUsuarioActual(usuarioLogueado.nombre);
-    document.getElementById("formulario").style.display = "none";
-
+    setNombreUsuarioActual(usuarioLogueado.nombre);
     document.querySelector('.user-container').classList.remove('hidden');
     agregarAlDoc();
-
-
 }
-
 function actualizarEstadoDeObjetos(usuario){
     let arrayLikes = usuario.likes;  //array que guarda el id (titulo) de las peliculas
     let arrayWatchlist = usuario.watchlist;
+    let arrayPuntajes = usuario.puntajes;
 
     actualizarEstadoDePeliculasLikeadas(arrayLikes);
     actualizarEstadoDeWatchlist(arrayWatchlist);
+    actualizarEstadoDePuntajes(arrayPuntajes);
+
+}
+
+function actualizarEstadoDePuntajes(arrayPuntajes){
+    console.log("Puntajes del storage:"+arrayPuntajes);
+
+    if(arrayPuntajes === null) return;
+    arrayPuntajes.forEach(puntaje => {
+        let objetoPelicula = obtenerObjeto(puntaje.id);
+        console.log("Pelicula-->"+objetoPelicula)
+        if(objetoPelicula){
+            objetoPelicula.puntaje = puntaje.puntaje;
+        }
+    });
 
 }
 
@@ -103,10 +147,8 @@ export function obtenerUsuarios(){
     if(!usuarios){
         usuarios = [];
     }else{
-        console.log("Usuarios del storage-->"+usuarios);
         usuarios = JSON.parse(usuarios);
     }
-    console.log("Usuarios del storage-->"+usuarios.length);
     return usuarios;
 }
 
@@ -134,7 +176,8 @@ function actualizarEstadoDePeliculasLikeadas(arrayLikes){
     });
 }
 //MANEJO DEL STORAGE
-function actualizarStorage(usuario){
+
+export function actualizarStorage(usuario){
     let usuarios = obtenerUsuarios();
     let indice = usuarios.findIndex(u => u.nombre === usuario.nombre);
     
@@ -147,10 +190,14 @@ function actualizarStorage(usuario){
     let usuariosJSON = JSON.stringify(usuarios);
     localStorage.setItem("usuarios", usuariosJSON);
 }
+
+export function obtenerUsuarioActual(){
+    let usuarios = obtenerUsuarios();
+    let usuarioActual = usuarios.find(u => u.nombre === nombreUsuarioActual);
+    return usuarioActual;
+}
 function borrarDatosDelStorage(){
-    localStorage.clear()
-    console.log("Se borraron todos los datos del storage");
-    
+    localStorage.clear()    
 }
 
 function mostarDatosDelStorage(){
