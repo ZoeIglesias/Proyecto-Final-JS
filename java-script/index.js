@@ -8,7 +8,11 @@ crearTodasLasInstacias();
 
 //---------------------------------main()------------------------------------------------------//
 //---------------------------------LOGING-----------------------------------------------------//
-iniciarSesionUsuario();
+iniciarSesionUsuario().then(() => {
+    agregarAlDoc();
+}).catch(() => {
+    console.error('El inicio de sesión falló');
+});
 
 
 //--------------------EVENTOS------------------------//
@@ -18,16 +22,6 @@ inputCliente.onsubmit = function (event) {
   event.preventDefault(); // Para evitar el comportamiento determinado --> (Cargar la pagina)
   buscador();
 };
-
-/*/2.) Likear
-let botonesLike = document.querySelectorAll(".btn-like");
-botonesLike.forEach((boton) => {
-  boton.onclick = function (event) {
-    event.preventDefault();
-    boton.classList.toggle("liked");
-    agregarAMisPeliculas(boton);
-  };
-});*/
 
 //3.) ACCEDER A LOS ITEMS DE LA NAV-BAR
 //INICIO

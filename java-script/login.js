@@ -1,55 +1,19 @@
 import { agregarAlDoc, obtenerObjeto } from "./funciones.js";
 import { setNombreUsuarioActual, nombreUsuarioActual} from "./varGlobales.js";
-/*export function iniciarSesionUsuario(){
 
-    console.log(localStorage.length);
-    mostarDatosDelStorage();
-   //borrarDatosDelStorage();
-    //FORMULARIO
-    let pagina = document.getElementById("seccion-inicio");
-    let contenedorFormulario = document.createElement('div');
-
-    pagina.innerHTML = "";
-    let formulario = 
-    `
-        <form id="formulario">
-            <div class="row g-3 align-items-center formulario-inicio">
-                <!--Usuario-->
-                <div class="col-auto">
-                    <label for="userName" class="form-label">Nombre de Usuario</label>
-                    <input type="text" class="form-control" id="userName">
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary texto btn-inicio">Iniciar Sesion</button>
-        </form>
-    `;
-
-    contenedorFormulario.innerHTML = formulario;
-
-    pagina.appendChild(contenedorFormulario);
-
-    let elementoFormulario = document.getElementById("formulario");
-
-    elementoFormulario.addEventListener('submit', validarDatosUsuario);
-
-    document.querySelector('.user-container').classList.add('hidden');
-
-
-}*/
 export function iniciarSesionUsuario() {
     return new Promise((resolve, reject) => {
         console.log(localStorage.length);
-        //mostarDatosDelStorage();
         //borrarDatosDelStorage();
 
         Swal.fire({
             title: 'Iniciar sesión',//titulo del POP-UP
             html: `
                 <input type="text" id="login" class="swal2-input" placeholder="Nombre de usuario"> 
-            `, //Defino el contenido del POP-UP
+            `, 
             confirmButtonText: 'Iniciar sesión',
-        
-            preConfirm: () => { //Valido el nombre que ingreso el usuario, es decir que no sea nulo => ''
+    
+            preConfirm: () => { 
                 const login = Swal.getPopup().querySelector('#login').value//obtengo el valor del input mediante el id del input
                 if (!login) {
                     Swal.showValidationMessage(`Por favor, ingrese un nombre de usuario válido`)

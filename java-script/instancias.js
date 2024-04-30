@@ -73,4 +73,16 @@ export function crearTodasLasInstacias(){
         "Christopher Nolan",
         180
     );
+    crearObjetoPelicula(
+        "Rocky IV",
+        "../html-css/imagenes/rocky_4_2.jpeg",
+        ["Drama", "Deporte"],
+        "Sylvester Stallone",
+        91);
+        crearObjetoPelicula(
+            "Shreck",
+            "../html-css/imagenes/shreck.jpeg",
+            ["Animacion", "Comedia"],
+            "Andrew Adamson",
+            87);
 }
