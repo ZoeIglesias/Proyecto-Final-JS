@@ -216,19 +216,38 @@ export function mostrarMisRankings(){
   let tresEstrellas = obtenerArraySegunPuntaje(3)
   let cuatroEstrellas = obtenerArraySegunPuntaje(4)
   let cincoEstrellas = obtenerArraySegunPuntaje(5)
-  console.log(cincoEstrellas.length)
+  
 
+  let peliculasAgrupadas = [unaEstrella,dosEstrellas,tresEstrellas,cuatroEstrellas,cincoEstrellas];
+
+  if (peliculasAgrupadas.every(arr => arr.length === 0)) {
+    Swal.fire({
+      title: 'AUN NO HAY PELÍCULAS PARA MOSTRAR 😢',
+      confirmButtonText: 'VOLVER AL INICIO',
+      //background: 'rgba(255, 255, 0, 0.5)',
+      icon: 'warning',
+      iconColor: 'black',
+      customClass: {
+        confirmButton: 'btn-volver-inicio'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        agregarAlDoc();
+      }
+    });
+    //return;
+  }
+  
   let moviesContainer = document.getElementById("espacio-peliculas");
   moviesContainer.innerHTML = ""; // Para borrar las peliculas del incio, sino se sobreescriben
 
    //unaEstrella = [{},{},{}]
   
-   let peliculasAgrupadas = [unaEstrella,dosEstrellas,tresEstrellas,cuatroEstrellas,cincoEstrellas];
 
    for (let i=0; i<peliculasAgrupadas.length; i++){
     if(peliculasAgrupadas[i].length > 0){
       let tituloPuntaje = document.createElement("h2");
-      if( i = 0 ){
+      if( i == 0 ){
         tituloPuntaje.textContent = `Películas con ${i+1} estrella`;//Si es 1 estrella
         tituloPuntaje.innerHTML += `<i class="fa-solid fa-star"></i>`;
       }else{
@@ -237,7 +256,9 @@ export function mostrarMisRankings(){
       }
       moviesContainer.appendChild(tituloPuntaje);
       let arrayDeObjetosPelicuas = peliculasAgrupadas[i].map(titulo => obtenerObjeto(titulo));
+      console.log("MUESTRO");
       mostrarGrupoEnPantalla(arrayDeObjetosPelicuas);
+    
     }
   }
   

@@ -32,6 +32,7 @@ export function agregarAlDoc() {
   clasesBotonLike();
   clasesBotonWatchlist();
   clasesBotonRanking();
+
   
   // Asignar eventos de clic a los botones de like
   let botonesLike = moviesContainer.querySelectorAll(".btn-like");// selecciono todos los botones

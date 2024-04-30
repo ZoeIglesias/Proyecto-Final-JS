@@ -63,5 +63,6 @@ itmeWatchlist.onclick = function (event) {
 let itemRankings = document.querySelector('.nav-link[href="mis-rankings"]');
 itemRankings.onclick = function(event){
   event.preventDefault();
+  console.log("Rankings")
   mostrarMisRankings()
 }

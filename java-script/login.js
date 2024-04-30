@@ -36,31 +36,35 @@ import { setNombreUsuarioActual, nombreUsuarioActual} from "./varGlobales.js";
 
 
 }*/
-
 export function iniciarSesionUsuario() {
-    console.log(localStorage.length);
-    //mostarDatosDelStorage();
-    //borrarDatosDelStorage();
+    return new Promise((resolve, reject) => {
+        console.log(localStorage.length);
+        //mostarDatosDelStorage();
+        //borrarDatosDelStorage();
 
-    Swal.fire({
-        title: 'Iniciar sesión',//titulo del POP-UP
-        html: `
-            <input type="text" id="login" class="swal2-input" placeholder="Nombre de usuario"> 
-        `, //Defino el contenido del POP-UP
-        confirmButtonText: 'Iniciar sesión',
-       
-        preConfirm: () => { //Valido el nombre que ingreso el usuario, es decir que no sea nulo => ''
-            const login = Swal.getPopup().querySelector('#login').value//obtengo el valor del input mediante el id del input
-            if (!login) {
-                Swal.showValidationMessage(`Por favor, ingrese un nombre de usuario válido`)
+        Swal.fire({
+            title: 'Iniciar sesión',//titulo del POP-UP
+            html: `
+                <input type="text" id="login" class="swal2-input" placeholder="Nombre de usuario"> 
+            `, //Defino el contenido del POP-UP
+            confirmButtonText: 'Iniciar sesión',
+        
+            preConfirm: () => { //Valido el nombre que ingreso el usuario, es decir que no sea nulo => ''
+                const login = Swal.getPopup().querySelector('#login').value//obtengo el valor del input mediante el id del input
+                if (!login) {
+                    Swal.showValidationMessage(`Por favor, ingrese un nombre de usuario válido`)
+                }
+                return { login: login }
             }
-            return { login: login }
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-            const usuarioNombre = result.value.login;
-            validarDatosUsuario(usuarioNombre);
-        }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const usuarioNombre = result.value.login;
+                validarDatosUsuario(usuarioNombre);
+                resolve();
+            } else {
+                reject();
+            }
+        });
     });
 }
 function validarDatosUsuario(usuarioNombre) {
@@ -114,7 +118,7 @@ function validarDatosUsuario(usuarioNombre) {
 
     setNombreUsuarioActual(usuarioLogueado.nombre);
     document.querySelector('.user-container').classList.remove('hidden');
-    agregarAlDoc();
+    //agregarAlDoc();
 }
 function actualizarEstadoDeObjetos(usuario){
     let arrayLikes = usuario.likes;  //array que guarda el id (titulo) de las peliculas
@@ -132,8 +136,7 @@ function actualizarEstadoDePuntajes(arrayPuntajes){
 
     if(arrayPuntajes === null) return;
     arrayPuntajes.forEach(puntaje => {
-        let objetoPelicula = obtenerObjeto(puntaje.id);
-        console.log("Pelicula-->"+objetoPelicula)
+        let objetoPelicula = obtenerObjeto(puntaje.titulo);
         if(objetoPelicula){
             objetoPelicula.puntaje = puntaje.puntaje;
         }
@@ -175,6 +178,8 @@ function actualizarEstadoDePeliculasLikeadas(arrayLikes){
         }
     });
 }
+
+
 //MANEJO DEL STORAGE
 
 export function actualizarStorage(usuario){
